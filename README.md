@@ -7,10 +7,10 @@ Este repositório trata da implementação server-side utilizado [Google App Eng
 
 Serviços
 ===========
-[Channel API](https://developers.google.com/appengine/docs/python/channel/)
-[Cron](https://developers.google.com/appengine/docs/python/config/cron)
-[Google Cloud Endpoints](https://developers.google.com/appengine/docs/python/endpoints/)
-[Google Cloud Messaging](http://developer.android.com/google/gcm/server.html)
+- [Channel API](https://developers.google.com/appengine/docs/python/channel/)
+- [Cron](https://developers.google.com/appengine/docs/python/config/cron)
+- [Google Cloud Endpoints](https://developers.google.com/appengine/docs/python/endpoints/)
+- [Google Cloud Messaging](http://developer.android.com/google/gcm/server.html)
 
 External
 ============
