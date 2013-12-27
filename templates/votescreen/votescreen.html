@@ -1,0 +1,58 @@
+{%extends 'base/base.html'%}
+{%block title%}Votação{%endblock%}
+{%block extrahead%}
+<link rel="stylesheet" type="text/css" href="/static/votescreen/votescreen.css">
+<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+{%endblock%}
+{%block content%}
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">GDG</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>Android Meetup #11</h1>
+      </div>
+      <div class="col-md-4">
+        <div class="resumo_infos">
+          <h3>Acontecendo!</h3>
+          <h3><strong>11</strong> Attending</h3>
+          <h3><strong>23</strong> Feedbacks</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row text-center postits">
+    <div class="col-md-6">
+      <i class="fa fa-thumbs-down fa-3x"></i>
+      <div class="postit text-left">
+        <h3>Muito bom!</h3>
+        <p>Gostei muito de tudo que ocorreu no evento, show!</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <i class="fa fa-thumbs-up fa-3x"></i>
+    </div>
+  </div>
+</div>
+
+
+{%endblock%}

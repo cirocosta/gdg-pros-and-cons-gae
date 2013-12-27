@@ -1,0 +1,24 @@
+#evento_principal {
+  background-color: #f0f0f0;
+  height: 400px;
+}
+
+#eventos_outros {
+  background-color: #e0e0e0;
+}
+
+.evento_outros {
+  width: 200px;
+  height: 200px;
+  background-color: #F0F0F0;
+}
+
+.evento_outros p {
+  position: relative;
+  top: 160px;
+  line-height: 0.3;
+}
+
+#footer {
+  margin-bottom: 0px !important;
+}

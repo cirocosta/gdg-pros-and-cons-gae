@@ -1,0 +1,25 @@
+.navbar {
+	margin-bottom: 0px;
+}
+
+#header_local{
+	height: 250px;
+	background-color: #f0f0f0;
+}
+
+#b_localizacao {
+	position: relative;
+	font-size: 12px;
+	top: 175px;
+	outline: none;
+	letter-spacing: 2px;
+	background: rgb(230, 230, 230);
+	width: 180px;
+	color: #888383;
+	box-shadow: 0 2px rgb(184, 184, 184);
+	border-radius: 4px 4px 0px 0;
+}
+
+.lead {
+	font-size: 18px;
+}
