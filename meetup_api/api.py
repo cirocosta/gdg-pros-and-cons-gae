@@ -54,26 +54,27 @@ class MeetupApi(object):
     def buildPath(self,model,api_root=API_ROOT_2,**params):
         """ Uses the object parameters to construct the path for the api fetching"""
         parameters_path = '%s?key=%s&' % (model,self.api_key)
-        parameters_path += urllib.urlencode(params)
+        parameters_path += urllib.urlencode(params['params'])
         print parameters_path
         return self.path + api_root + parameters_path
 
-    def getAllObjects(self,model,**params):
+    def getAllObjects(self,model,num=20,**params):
         """ Returns a list of objects of a model given some request params 
 
         params:
         model   -- the type of thing is being queried against
+        num     -- limit of the result
         params  -- the params to obtain it
         """
         self.validateParameters(model,params)
-        url = self.buildPath(model=model,api_root=API_ROOT_2,params=**params)
+        url = self.buildPath(model=model,api_root=API_ROOT_2,params=params)
         result = list()
+        groups = list()
         try:
             response = simplejson.loads(urllib2.urlopen(url).read())
         except Exception,e:
             raise MeetupApiException('An exception was raised while getting the response.')
         if 'results' in response:
-            groups = list()
             results = response['results']
             if model == 'groups':
                 for result in results:
@@ -84,18 +85,10 @@ class MeetupApi(object):
             elif model == 'members':
                 for result in results:
                     groups.append(Member(result))
+        if len(groups) > 0:
+            return groups[0:num]
+        else:
             return groups
-            
-    def getObject(self,model,**params):
-        """ Returns just the first of the list of objects
-        that were got in getAllObjects
-
-        params:
-        model   -- the type of thing is being queried against
-        params  -- the params to obtain it
-        """
-        return getAllObjects(model,**params)[0]
-
 
     def validateParameters(self,model,parameters):
         """ Verifies if there is at least one of the required parameters for the query """
