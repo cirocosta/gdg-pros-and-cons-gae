@@ -1,3 +1,12 @@
+#header h1 {
+  font-size: 110px;
+font-weight: bold;
+line-height: 0.3;
+color: rgb(77, 77, 77);
+letter-spacing: -5px;
+text-shadow: 0 1px 0 rgba(255,255,255,0.75), 0 -1px black;
+}
+
 #evento_principal {
   background-color: #f0f0f0;
   height: 400px;
