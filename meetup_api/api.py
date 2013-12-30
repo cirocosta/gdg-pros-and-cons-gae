@@ -4,25 +4,34 @@
 #https://github.com/cirocosta/gdg-pros-and-cons-gae
 
 import json as simplejson
-from datetime import datetime
-
 import urllib
 import urllib2
+import settings
+import datetime
 
-API_ROOT_2 = '2/'
-API_ROOT_EW = 'ew/'
-API_HOST = 'api.meetup.com/'
-API_SCHEME = 'https://'
+API_ROOT_2      = '2/'
+API_ROOT_EW     = 'ew/'
+API_HOST        = 'api.meetup.com/'
+API_SCHEME      = 'https://'
+    
+URI_RSVPS       = 'rsvps/'
+URI_PROFILES    = 'profiles/'
+URI_GROUPS      = 'groups/'
+URI_EVENTS      = 'events/'
+URI_MEMBERS     = 'members/'
 
-URI_RSVPS = 'rsvps/'
-URI_PROFILES = 'profiles/'
-URI_GROUPS  = 'groups/'
-URI_EVENTS  = 'events/'
-URI_MEMBERS = 'members/'
 
+def convertToUtf8Str(param):
+    """ To avoid the problem with non-ascii characters """
+    if isinstance(param, unicode):
+        param = param.encode('utf-8')
+    elif not isinstance(param, str):
+        param = str(param)
+    return param
 
 class MeetupApiException(Exception):
     pass
+
 
 class MeetupApi(object):
     """ Class for the MeetupApi
@@ -43,7 +52,7 @@ class MeetupApi(object):
         'members'   :   ['group_id','group_urlname','member_id','service','topic,groupnum'],
     }
     
-    def __init__(self,api_key):
+    def __init__(self,api_key=settings.MEETUP_API_KEY):
         self.retry_count = 0
         self.retry_delay = 0
         self.api_key = api_key
@@ -55,7 +64,6 @@ class MeetupApi(object):
         """ Uses the object parameters to construct the path for the api fetching"""
         parameters_path = '%s?key=%s&' % (model,self.api_key)
         parameters_path += urllib.urlencode(params['params'])
-        print parameters_path
         return self.path + api_root + parameters_path
 
     def getAllObjects(self,model,num=20,**params):
@@ -73,7 +81,8 @@ class MeetupApi(object):
         try:
             response = simplejson.loads(urllib2.urlopen(url).read())
         except Exception,e:
-            raise MeetupApiException('An exception was raised while getting the response.')
+            raise MeetupApiException('An exception was raised while getting the response: '\
+                + str(e))
         if 'results' in response:
             results = response['results']
             if model == 'groups':
@@ -115,37 +124,52 @@ class Model(object):
     def __init__(self,properties):
         for field in self.fields:
             try:
-                self.__setattr__(field,properties[field])
+                value = properties[field]
+                if type(value) != dict:
+                    self.__setattr__(field,convertToUtf8Str(properties[field]))
+                else:
+                    self.__setattr__(field,properties[field])                    
             except:
-                self.__setattr__(field,'Not a valid field')
+                self.__setattr__(field,None)
 
 
 class Event(Model):
-    fields = ['announced','comment_count','created','description','distance','duration','email_remainders',\
-        'event_hosts','event_url','featured','fee','group','headcount','how_to_find_us','id','is_simplehtml',\
-        'maybe_rsvp_count','name','photo_album_id','photo_count','photo_url','publish_status','rating','rsvp_alerts',\
-        'rsvp_rules','rsvpable','self','short_link','status','survey_questions','time','timezone','trending_rank',\
-        'updated','utc_offset','venue','venue_visibility','visibility','why','yes_rsvp_count']
+    fields = ['announced','comment_count','created','description','distance',
+        'duration','email_remainders','event_hosts','event_url','featured',
+        'fee','group','headcount','how_to_find_us','id','is_simplehtml',
+        'maybe_rsvp_count','name','photo_album_id','photo_count','photo_url',
+        'publish_status','rating','rsvp_alerts','rsvp_rules','rsvpable','self',
+        'short_link','status','survey_questions','time','timezone','trending_rank',
+        'updated','utc_offset','venue','venue_visibility','visibility','why',
+        'yes_rsvp_count'
+        ]
 
 
 class Member(Model):
-    fields = ['bio','birthday','country,city,state','email','gender','hometown',\
-        'id','joined','lang','lat,lon','link','membership_count','messagable',\
-        'messaging_pref','name','other_services','photo','photo_url','photos',\
-        'privacy','reachable','self','topics','visited']
+    fields = ['bio','birthday','country,city,state','email','gender','hometown',
+        'id','joined','lang','lat,lon','link','membership_count','messagable',
+        'messaging_pref','name','other_services','photo','photo_url','photos',
+        'privacy','reachable','self','topics','visited'
+        ]
 
 
 class Profile(Model):
-    fields = ['additional','answers','attendance_count','bio','comment','created,updated','group','member_city','member_country',\
-        'member_id','member_state','membership_dues','name','other_services','photo','photo_url','profile_url','role',\
-        'site_url,site_name','status','title','visited']
+    fields = ['additional','answers','attendance_count','bio','comment',
+        'created,updated','group','member_city','member_country','member_id',
+        'member_state','membership_dues','name','other_services','photo',
+        'photo_url','profile_url','role','site_url,site_name','status',
+        'title','visited'
+        ]
 
 
 class Group(Model):
-    fields = ['category','city','country','created','description','ga_code','group_photo','id','is_simplehtml','join_info',\
-        'join_mode','lat','link','list_addr','list_mode','lon','members','membership_dues','name','next_event','organizer',\
-        'other_services','pending_members','photos','primary_topic','rating','self','short_link','similar_groups','sponsors',\
-        'state','timezone','topics','urlname','visibility','welcome_message','who']
+    fields = ['category','city','country','created','description','ga_code',
+        'group_photo','id','is_simplehtml','join_info','join_mode','lat','link',
+        'list_addr','list_mode','lon','members','membership_dues','name',
+        'next_event','organizer','other_services','pending_members','photos',
+        'primary_topic','rating','self','short_link','similar_groups','sponsors',
+        'state','timezone','topics','urlname','visibility','welcome_message','who'
+        ]
 
 
 class Rsvp(Model):

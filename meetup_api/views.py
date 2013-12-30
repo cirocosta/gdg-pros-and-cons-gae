@@ -11,20 +11,32 @@ class RefreshDb(webapp2.RequestHandler):
     those that are already in the DB if necessary.
     """
     def get(self):
-        get_event(0)
-        get_group(settings.MEETUP_GDG_GROUP_ID)
-        self.response.write('done!')
+        api = meetupapi.MeetupApi()
+        events = api.getAllObjects(model='events',group_urlname='GDG-SP')
+        groups = api.getAllObjects(model='groups',group_urlname='GDG-SP')
 
-def get_event(event_id):
-    pass
+        for evento in events:
+            query = MeetupEvent.\
+                query(MeetupEvent.event_id == evento.id).iter()
+            if query.has_next():
+                meetupEvent = query.next()
+            else:
+                meetupEvent = MeetupEvent(\
+                    parent=ndb.Key('MeetupEvent',evento.group['urlname']))
+            print meetupEvent
 
-def get_group(group_id):
-    api = meetupapi.MeetupApi(api_key=settings.MEETUP_API_KEY)
-    pass
+        for grupo in groups:
+            query = MeetupGroup.\
+                query(MeetupGroup.group_id == grupo.id).iter()
+            if query.has_next():
+                meetupGroup = query.next()
+            else:
+                meetupGroup = MeetupGroup(\
+                    parent=ndb.Key('MeetupGroup',grupo.urlname))
+            print meetupGroup
 
 def getMemberKey(name):
     return ndb.Key('MeetupMember',name)
-
 
 # api = meetupapi.MeetupApi(api_key=settings.MEETUP_API_KEY)
 # for obj in api.getObject(model='groups',group_urlname='GDG-SP'):
