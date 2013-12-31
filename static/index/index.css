@@ -1,0 +1,33 @@
+#header h1 {
+  font-size: 110px;
+font-weight: bold;
+line-height: 0.3;
+color: rgb(77, 77, 77);
+letter-spacing: -5px;
+text-shadow: 0 1px 0 rgba(255,255,255,0.75), 0 -1px black;
+}
+
+#evento_principal {
+  height: 400px;
+  position: relative;
+}
+
+#eventos_outros {
+  background-color: #e0e0e0;
+}
+
+.evento_outros {
+  width: 200px;
+  height: 200px;
+  background-color: #F0F0F0;
+}
+
+.evento_outros p {
+  position: relative;
+  top: 160px;
+  line-height: 0.3;
+}
+
+#footer {
+  margin-bottom: 0px !important;
+}
