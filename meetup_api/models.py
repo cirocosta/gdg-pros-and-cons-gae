@@ -10,10 +10,10 @@ EVENT_STATUS = {
 }
 
 
-class MeetupGroup(ndb.Model):
+class MeetupGroup(ndb.Expando):
+    """ Utilizing ndb.Expando to show how easy it is to use this with
+    the model of API that we've built. """
     group_id    = ndb.StringProperty(indexed=True,required=True)
-    name        = ndb.StringProperty()
-    description = ndb.TextProperty()
 
 
 class MeetupEvent(ndb.Model):
@@ -27,7 +27,7 @@ class MeetupEvent(ndb.Model):
     yes_rsvp_count      = ndb.IntegerProperty()
     photo_url           = ndb.StringProperty()
     status              = ndb.StringProperty()
-    updated             = ndb.IntegerProperty()
+    updated             = ndb.DateTimeProperty(indexed=True)
     group               = ndb.KeyProperty(kind=MeetupGroup)
 
 

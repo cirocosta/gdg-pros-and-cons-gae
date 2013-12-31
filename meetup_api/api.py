@@ -2,6 +2,11 @@
 
 #Super Simple Meetup API custom purpose lib.
 #https://github.com/cirocosta/gdg-pros-and-cons-gae
+#
+#This is not the best for GAE as it does not
+#translates directly for ndb.Model, but better
+#for a general purpose
+
 
 import json as simplejson
 import urllib
