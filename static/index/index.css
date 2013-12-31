@@ -8,8 +8,8 @@ text-shadow: 0 1px 0 rgba(255,255,255,0.75), 0 -1px black;
 }
 
 #evento_principal {
-  background-color: #f0f0f0;
   height: 400px;
+  position: relative;
 }
 
 #eventos_outros {

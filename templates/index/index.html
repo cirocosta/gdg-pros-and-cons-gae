@@ -11,46 +11,52 @@
 </div>
 
 <div class="container">
+<!--   {%if main_event%}
   <div id="evento_principal" onClick="window.location.href = '/votescreen'">
     <div class="row">
       <div class="col-md-6">
-        <h2>Android Meetup #11</h2>
-        <h4><strong>11</strong> Participantes</h4>
+        <h2>{{main_event.name}}</h2>
+        <h4><strong>{{main_event.yes_rsvp_count}}</strong> Participantes</h4>
       </div>
       <div class="col-md-6 text-right">
-        <h2>Está rolando!</h2>
+        <h2>{{main_event.time}}</h2>
         <h4><strong>5</strong>down, <strong>15</strong>up</h4>
       </div>
     </div>
+    <img src="http://dummyimage.com/400x200&text=PHOTO_lolEVENT">
   </div>
+  {%endif%} -->
 
+  {%if main_event%}
+  <div id="main_event" onClick="window.location.href = '/votescreen'">
+    <div class="row">
+      <div class="col-md-6">
+        <img width="800" class="img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-nLB6FN64td-9bxHcVuVgS0oC178zVfL09ah6MSE4YzM953kqVg">
+      </div>
+      <div class="col-md-6">
+        <h1>{{main_event.name}}</h1>
+        <h2><strong>{{main_event.yes_rsvp_count}}</strong><small> Reservados!</small></h2>
+      </div>
+    </div>
+  </div>
+  {%endif%}
+
+  {%if events%}
   <div id="eventos_outros">
     <h2>Outros Eventos</h2>
-
     <ul class="list-inline">
+      {%for evento in events%}
       <li>
         <div class="evento_outros">
           <p><strong>18</strong> Attending</p>
           <p><strong>3</strong>down, <strong>14</strong>up</p>
-          <p><strong>Android Meetup #7</strong></p>
+          <p><strong>{{evento.name}}</strong></p>
         </div>
       </li>
-      <li>
-        <div class="evento_outros">
-          <p><strong>18</strong> Attending</p>
-          <p><strong>3</strong>down, <strong>14</strong>up</p>
-          <p><strong>Android Meetup #7</strong></p>
-        </div>
-      </li>
-      <li>
-        <div class="evento_outros">
-          <p><strong>18</strong> Attending</p>
-          <p><strong>3</strong>down, <strong>14</strong>up</p>
-          <p><strong>Android Meetup #7</strong></p>
-        </div>
-      </li>
+      {%endfor%}
     </ul>
   </div>
+  {%endif%}
 
 </div>
 
@@ -68,4 +74,9 @@
   </div>
 </div>
 
+<script type="text/javascript">
+$(function(){
+  
+});
+</script>
 {%endblock%}

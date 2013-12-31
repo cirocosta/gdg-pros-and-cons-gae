@@ -1,6 +1,8 @@
 from google.appengine.ext import ndb
+from datetime import datetime
 
 EVENT_STATUS = {
+    #happening now is included in the upcomming
     "canceled"  :   0,
     "upcoming"  :   1,
     "past"      :   2,
@@ -26,9 +28,21 @@ class MeetupEvent(ndb.Model):
     maybe_rsvp_count    = ndb.IntegerProperty()
     yes_rsvp_count      = ndb.IntegerProperty()
     photo_url           = ndb.StringProperty()
-    status              = ndb.StringProperty()
+    status              = ndb.StringProperty(indexed=True)
     updated             = ndb.DateTimeProperty(indexed=True)
     group               = ndb.KeyProperty(kind=MeetupGroup)
+
+    @classmethod
+    def getGroupEvents(cls,group_key):
+        """ Returns the current or the next event that we'll have """
+        #TODO : resolve the case where we have multiple groups.
+        #just providing a filter will kill the multi-sort-order
+        qry = cls.query().\
+            order(-MeetupEvent.status,MeetupEvent.time).iter()
+        if qry.has_next():
+            return qry
+        else:
+            return None
 
 
 class MeetupMember(ndb.Model):
