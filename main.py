@@ -1,8 +1,19 @@
+# Main handler for the requests. Routes the paths to the methods
+
 import webapp2
+import endpoints
 import settings
+
 import index.views
 import votescreen.views
 import meetup_api.views
+
+from api.helloworld_api import HelloWorldApi
+
+
+api_application = endpoints.api_server([
+	HelloWorldApi,
+]) 
 
 application = webapp2.WSGIApplication([
     ('/', 						index.views.IndexPage),
