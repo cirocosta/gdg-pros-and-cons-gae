@@ -21,3 +21,19 @@ STORED_GREETINGS = GreetingCollection(items=[
     Greeting(message='Hello World!'),
     Greeting(message='goodbye F*Cking World'),
 ])
+
+
+class ApiDefaultResponse(messages.Message):
+	position 	=	messages.IntegerField(1)
+
+
+class ApiComment(messages.Message):
+	bom			=	messages.IntegerField(1)
+	comentario	=	messages.StringField(2)
+	titulo		=	messages.StringField(3)
+	data		=	messages.IntegerField(4)
+	event_id	=	messages.StringField(5)
+
+class ApiCommentCollection(messages.Message):
+	comments 	= 	messages.MessageField(ApiComment,
+								1,repeated=True)

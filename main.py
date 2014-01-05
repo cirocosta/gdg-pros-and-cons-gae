@@ -8,11 +8,11 @@ import index.views
 import votescreen.views
 import meetup_api.views
 
-from api.helloworld_api import HelloWorldApi
+from api.gdgapi import GdgApi
 
 
 api_application = endpoints.api_server([
-    HelloWorldApi,
+    GdgApi,
 ]) 
 
 application = webapp2.WSGIApplication([

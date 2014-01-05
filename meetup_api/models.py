@@ -1,5 +1,5 @@
 # Models to store the data comming from Meetup API. This will reflect
-# a bit of the same state of the responses from the reffered API. 
+# a bit of the same state of the responses from the reffered API.
 
 
 from google.appengine.ext import ndb
@@ -64,7 +64,7 @@ class MeetupEvent(ndb.Model):
     def getEventComments(self):
         """ Returns the comments iterator for the current Event or
             False otherwise """
-        comments = Comment.query(Comment.evento == self.key).iter()
+        comments = Comment.query(Comment.event_id == self.event_id).iter()
         return comments if comments.has_next() else False
 
     def filterComments(self,comments,status):
