@@ -4,6 +4,7 @@
 
 from google.appengine.ext import ndb
 from datetime import datetime
+from votescreen.models import Comment
 
 
 EVENT_STATUS = {
@@ -48,6 +49,39 @@ class MeetupEvent(ndb.Model):
             return qry
         else:
             return None
+
+    @classmethod
+    def getEvent(cls,event_id):
+        """ Searches for an event that matches the arg(event_id).
+        If nothing is found False is returned
+        """
+        events = cls.query(MeetupEvent.event_id == event_id).iter()
+        event = False
+        if events.has_next():
+            event = events.next()
+        return event
+
+    def getEventComments(self):
+        """ Returns the comments iterator for the current Event or
+            False otherwise """
+        comments = Comment.query(Comment.evento == self.key).iter()
+        return comments if comments.has_next() else False
+
+    def filterComments(self,comments,status):
+        """ Given an iterator over a Comment query, filters it. 
+
+        Status:
+        0   --  bad
+        1   --  good
+
+        Returns:
+        List of comments if comments arg is not False
+        False otherwise
+        """
+        return [comment for comment 
+            in comments 
+            if comment.bom == status] if comments else False
+
 
 
 class MeetupMember(ndb.Model):
