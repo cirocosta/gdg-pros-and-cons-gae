@@ -12,7 +12,7 @@ class VoteScreen(webapp2.RequestHandler):
         bad_comments = event.filterComments(comments,1)
         
         template_values = {
-            'event'  :   event,
+            'event'  :         event,
             'good_comments':   good_comments,
             'bad_comments' :   bad_comments, 
             }
