@@ -21,7 +21,4 @@ Serviços
 
 External
 ============
-Faz-se uso da API do [Meetup.com](www.meetup.com) para a obtenção de dados referentes aos encontros do grupo:
-
-- https://api.meetup.com/2/groups?&sign=true&group_urlname=GDG-SP&page=20
-- https://api.meetup.com/2/events?&sign=true&group_id=8562442&page=20
+Faz-se uso da API do [Meetup.com](www.meetup.com) para a obtenção de dados referentes aos encontros do grupo.

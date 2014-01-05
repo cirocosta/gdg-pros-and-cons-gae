@@ -9,7 +9,7 @@
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">GDG</a>
+      <a class="navbar-brand" href="/">GDG</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -24,18 +24,20 @@
 
 <div class="jumbotron">
   <div class="container">
+    {%if event%}
     <div class="row">
       <div class="col-md-8">
-        <h1>Android Meetup #11</h1>
+        <h1>{{event.name}}</h1>
       </div>
       <div class="col-md-4">
         <div class="resumo_infos">
-          <h3>Acontecendo!</h3>
-          <h3><strong>11</strong> Attending</h3>
+          <h3>{{event.time}}</h3>
+          <h3><strong>{{event.yes_rsvp_count}}</strong> Attending</h3>
           <h3><strong>23</strong> Feedbacks</h3>
         </div>
       </div>
     </div>
+    {%endif%}
   </div>
 </div>
 
@@ -43,13 +45,29 @@
   <div class="row text-center postits">
     <div class="col-md-6">
       <i class="fa fa-thumbs-down fa-3x"></i>
+      {%if bad_comments%}
+      {%for comment in bad_comments%}
       <div class="postit text-left">
-        <h3>Muito bom!</h3>
-        <p>Gostei muito de tudo que ocorreu no evento, show!</p>
+        <h3>{{comment.titulo}}</h3>
+        <p>{{comment.comentario}}</p>
       </div>
+      {%endfor%}
+      {%else%}
+      <p>Sem comentários ruins \o</p>
+      {%endif%}
     </div>
     <div class="col-md-6">
       <i class="fa fa-thumbs-up fa-3x"></i>
+      {%if good_comments%}
+      {%for comment in good_comments%}
+      <div class="postit text-left">
+        <h3>{{comment.titulo}}</h3>
+        <p>{{comment.comentario}}</p>
+      </div>
+      {%endfor%}
+      {%else%}
+      <p>Sem comentários bons :'(</p>
+      {%endif%}
     </div>
   </div>
 </div>
