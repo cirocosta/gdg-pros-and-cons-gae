@@ -97,5 +97,6 @@ class RefreshDb(webapp2.RequestHandler):
                 meetupLocation.event        = meetupEvent.key
                 meetupLocation.put()
 
+
 def getMemberKey(name):
     return ndb.Key('MeetupMember',name)

@@ -1,5 +1,10 @@
+# Models to store the data comming from Meetup API. This will reflect
+# a bit of the same state of the responses from the reffered API. 
+
+
 from google.appengine.ext import ndb
 from datetime import datetime
+
 
 EVENT_STATUS = {
     #happening now is included in the upcomming
