@@ -1,3 +1,5 @@
+# Views for the first page of the Application
+
 from meetup_api.models import MeetupEvent
 from meetup_api.models import MeetupGroup
 from google.appengine.ext import ndb

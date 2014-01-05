@@ -1,0 +1,4 @@
+cron:
+-   description: refresh the db from meetup api
+    url: /meetup_api/refresh_db
+    schedule: every 1 hours

@@ -9,9 +9,11 @@ handlers:
     static_dir: static
 -   url: /_ah/spi/.*
     script: main.api_application
+-   url: /meetup_api/refresh_db
+    script: main.application
+    login: admin
 -   url: /.*
     script: main.application
-
 
 libraries:
 -   name: pycrypto
