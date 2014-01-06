@@ -1,21 +1,13 @@
 # Models to store the data comming from Meetup API. This will reflect
 # a bit of the same state of the responses from the reffered API.
 
+import endpoints
 
 from google.appengine.ext import ndb
+from protorpc import remote
+from endpoints_proto_datastore.ndb import EndpointsModel
 from datetime import datetime
 from votescreen.models import Comment
-
-
-EVENT_STATUS = {
-    #happening now is included in the upcomming
-    "canceled"  :   0,
-    "upcoming"  :   1,
-    "past"      :   2,
-    "proposed"  :   3,
-    "suggested" :   4,
-    "draft"     :   5,
-}
 
 
 class MeetupGroup(ndb.Expando):
@@ -24,7 +16,7 @@ class MeetupGroup(ndb.Expando):
     group_id    = ndb.StringProperty(indexed=True,required=True)
 
 
-class MeetupEvent(ndb.Model):
+class MeetupEvent(EndpointsModel):
     event_id            = ndb.StringProperty(indexed=True,required=True)
     name                = ndb.StringProperty(indexed=True)
     time                = ndb.DateTimeProperty(indexed=True)

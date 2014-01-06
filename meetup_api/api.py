@@ -42,10 +42,10 @@ class MeetupApi(object):
     """ Class for the MeetupApi
 
     params for config:
-    api_key     : api key on meetup
-    api_root    : root for the api ('\ew' or '\2')
-    api_scheme  : https or http
-    host        : url host for the api
+        api_key     : api key on meetup
+        api_root    : root for the api ('\ew' or '\2')
+        api_scheme  : https or http
+        host        : url host for the api
     """
 
     REQUIRED_FIELDS = {
@@ -75,9 +75,9 @@ class MeetupApi(object):
         """ Returns a list of objects of a model given some request params 
 
         params:
-        model   -- the type of thing is being queried against
-        num     -- limit of the result
-        params  -- the params to obtain it
+            model   -- the type of thing is being queried against
+            num     -- limit of the result
+            params  -- the params to obtain it
         """
         self.validateParameters(model,params)
         url = self.buildPath(model=model,api_root=API_ROOT_2,params=params)
@@ -122,7 +122,7 @@ class Model(object):
     """ Abstract class for the objects that we want to get.
 
     params:
-    properties  --- Dict of the things we receive
+        properties  -- Dict of the things we receive
     """
     fields = []
 

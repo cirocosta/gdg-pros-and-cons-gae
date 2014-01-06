@@ -11,12 +11,13 @@ Wiki
 O [wiki](http://cirocosta.github.io/gdg-pros-and-cons-gae) há de ser elaborado em breve.
 
 
-Serviços
+Tools
 ===========
 - [Channel API](https://developers.google.com/appengine/docs/python/channel/)
 - [Cron](https://developers.google.com/appengine/docs/python/config/cron)
 - [Google Cloud Endpoints](https://developers.google.com/appengine/docs/python/endpoints/)
 - [Google Cloud Messaging](http://developer.android.com/google/gcm/server.html)
+- [Endpoints-proto-datastore](https://github.com/GoogleCloudPlatform/endpoints-proto-datastore)
 
 
 External
