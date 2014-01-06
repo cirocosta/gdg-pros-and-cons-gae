@@ -10,10 +10,19 @@ from datetime import datetime
 from votescreen.models import Comment
 
 
-class MeetupGroup(ndb.Expando):
+class MeetupGroup(EndpointsModel):
     """ Utilizing ndb.Expando to show how easy it is to use this with
     the model of API that we've built. """
+
+    _message_fields_schema = (
+        'id','group_id','name','description','urlname','members',
+        )
+
     group_id    = ndb.StringProperty(indexed=True,required=True)
+    name        = ndb.StringProperty(indexed=True)
+    description = ndb.TextProperty()
+    urlname     = ndb.StringProperty(indexed=True)
+    members     = ndb.IntegerProperty()
 
 
 class MeetupEvent(EndpointsModel):

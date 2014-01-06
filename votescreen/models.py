@@ -3,7 +3,6 @@ from endpoints_proto_datastore.ndb import EndpointsModel
 
 
 class Comment(EndpointsModel):
-
     _message_fields_schema = (
         'id','bom','comentario','titulo','data','event_id',
         )
