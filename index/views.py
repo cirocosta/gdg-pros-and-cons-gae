@@ -18,7 +18,6 @@ class IndexPage(webapp2.RequestHandler):
             group = None
             events = None
 
-        print events
         main_event = events.next() if events != None else False
         template_values = {
             'main_event'    :   main_event,

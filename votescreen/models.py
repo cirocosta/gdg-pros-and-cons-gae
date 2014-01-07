@@ -10,4 +10,4 @@ class Comment(EndpointsModel):
     comentario  = ndb.StringProperty(required=True)
     titulo      = ndb.StringProperty()
     data        = ndb.DateTimeProperty(indexed=True,auto_now_add=True)
-    event_id    = ndb.KeyProperty()
+    event_id    = ndb.StringProperty()

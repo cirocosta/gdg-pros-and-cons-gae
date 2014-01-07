@@ -15,11 +15,13 @@
   <div id="main_event" onClick="window.location.href = '/votescreen/{{main_event.event_id}}'">
     <div class="row">
       <div class="col-md-6">
-        <img width="800" class="img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-nLB6FN64td-9bxHcVuVgS0oC178zVfL09ah6MSE4YzM953kqVg">
+        <img width="800" class="img-responsive" 
+          src="{%if main_event.photo_url is none%}https://phandroid.s3.amazonaws.com/wp-content/uploads/2012/06/android-design.jpg{%else%}{{main_event.photo_url}}{%endif%}">
       </div>
       <div class="col-md-6">
         <h1>{{main_event.name}}</h1>
         <h2><strong>{{main_event.yes_rsvp_count}}</strong><small> Reservados!</small></h2>
+        <p>{{main_event.description|safe}}</p>
       </div>
     </div>
   </div>
@@ -33,7 +35,7 @@
       <li>
         <div class="evento_outros" 
           onClick="window.location.href = '/votescreen/{{evento.event_id}}/einfo'">
-          <p><strong>18</strong> Attending</p>
+          <p><strong>{{evento.yes_rsvp_count}}</strong> Attending</p>
           <p><strong>3</strong>down, <strong>14</strong>up</p>
           <p><strong>{{evento.name}}</strong></p>
         </div>
