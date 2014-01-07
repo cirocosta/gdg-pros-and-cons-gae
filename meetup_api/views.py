@@ -33,6 +33,8 @@ class RefreshDb(webapp2.RequestHandler):
             else:
                 meetupGroup = MeetupGroup()
 
+            print grupo.description.__class__
+
             meetupGroup.group_id    = group_id
             meetupGroup.name        = grupo.name
             meetupGroup.description = grupo.description

@@ -6,6 +6,7 @@ from protorpc import messages
 from protorpc import message_types
 from protorpc import remote
 from votescreen.models import Comment
+from meetup_api.models import MeetupGroup, MeetupEvent
 
 
 @endpoints.api(name='gdgapi',version='v1')
@@ -17,6 +18,11 @@ class GdgApi(remote.Service):
         comment/{id}            (DELETE) 
         comment/{id}            (GET)
         comments/{event_id}     (GET)
+
+        meetupevent
+        meetupevents
+        meetupgroup
+        meetupgroups
     """
 
     @Comment.method(response_fields=('id',),
@@ -40,7 +46,7 @@ class GdgApi(remote.Service):
 
 
     @Comment.method(request_fields=('id',),
-                    path='comment/{id}',
+                    path='comment',
                     http_method='GET',
                     name='comment.get')
     def CommentGet(self,comment):
@@ -55,3 +61,34 @@ class GdgApi(remote.Service):
     def CommentsList(self,query):
         return query
 
+
+    @MeetupGroup.method(request_fields=('group_id',),
+                    path='meetupgroup',
+                    http_method='GET',
+                    name='meetupgroup.get')
+    def MeetupGroupGet(self,group):
+        if not group.from_datastore:
+            raise endpoints.NotFoundException('MeetupGroup not found.')
+        return group
+
+    @MeetupGroup.query_method(query_fields=('limit','order','pageToken',),
+                        path='meetupgroups',
+                        name='meetupgroups.list')
+    def MeetupGroupsList(self,query):
+        return query
+
+
+    @MeetupEvent.query_method(query_fields=('limit','order','pageToken',),
+                        path='meetupgevents',
+                        name='meetupevents.list')
+    def MeetupEventsList(self,query):
+        return query
+
+    @MeetupEvent.method(request_fields=('event_id',),
+                        path='meetupevent',
+                        http_method='GET',
+                        name='meetupevent.get')
+    def MeetupEventGet(self,event):
+        if not event.from_datastore:
+            raise endpoints.NotFoundException('MeetupEvent not found.')
+        return event

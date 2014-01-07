@@ -20,7 +20,7 @@ class MeetupGroup(EndpointsModel):
 
     group_id    = ndb.StringProperty(indexed=True,required=True)
     name        = ndb.StringProperty(indexed=True)
-    description = ndb.TextProperty()
+    description = ndb.StringProperty(indexed=False)
     urlname     = ndb.StringProperty(indexed=True)
     members     = ndb.IntegerProperty()
 
@@ -29,7 +29,7 @@ class MeetupEvent(EndpointsModel):
     event_id            = ndb.StringProperty(indexed=True,required=True)
     name                = ndb.StringProperty(indexed=True)
     time                = ndb.DateTimeProperty(indexed=True)
-    description         = ndb.TextProperty()
+    description         = ndb.StringProperty(indexed=False)
     duration            = ndb.IntegerProperty()
     event_url           = ndb.StringProperty()
     maybe_rsvp_count    = ndb.IntegerProperty()
