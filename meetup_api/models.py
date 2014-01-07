@@ -1,34 +1,44 @@
 # Models to store the data comming from Meetup API. This will reflect
+<<<<<<< HEAD
 # a bit of the same state of the responses from the reffered API. 
 
+=======
+# a bit of the same state of the responses from the reffered API.
+
+import endpoints
+>>>>>>> F_api
 
 from google.appengine.ext import ndb
+from protorpc import remote
+from endpoints_proto_datastore.ndb import EndpointsModel
 from datetime import datetime
 from votescreen.models import Comment
+<<<<<<< HEAD
+
+=======
+>>>>>>> F_api
 
 
-EVENT_STATUS = {
-    #happening now is included in the upcomming
-    "canceled"  :   0,
-    "upcoming"  :   1,
-    "past"      :   2,
-    "proposed"  :   3,
-    "suggested" :   4,
-    "draft"     :   5,
-}
-
-
-class MeetupGroup(ndb.Expando):
+class MeetupGroup(EndpointsModel):
     """ Utilizing ndb.Expando to show how easy it is to use this with
     the model of API that we've built. """
+
+    _message_fields_schema = (
+        'id','group_id','name','description','urlname','members',
+        )
+
     group_id    = ndb.StringProperty(indexed=True,required=True)
+    name        = ndb.StringProperty(indexed=True)
+    description = ndb.StringProperty(indexed=False)
+    urlname     = ndb.StringProperty(indexed=True)
+    members     = ndb.IntegerProperty()
 
 
-class MeetupEvent(ndb.Model):
+class MeetupEvent(EndpointsModel):
     event_id            = ndb.StringProperty(indexed=True,required=True)
     name                = ndb.StringProperty(indexed=True)
     time                = ndb.DateTimeProperty(indexed=True)
-    description         = ndb.TextProperty()
+    description         = ndb.StringProperty(indexed=False)
     duration            = ndb.IntegerProperty()
     event_url           = ndb.StringProperty()
     maybe_rsvp_count    = ndb.IntegerProperty()
@@ -64,7 +74,11 @@ class MeetupEvent(ndb.Model):
     def getEventComments(self):
         """ Returns the comments iterator for the current Event or
             False otherwise """
+<<<<<<< HEAD
         comments = Comment.query(Comment.evento == self.key).iter()
+=======
+        comments = Comment.query(Comment.event_id == self.event_id).iter()
+>>>>>>> F_api
         return comments if comments.has_next() else False
 
     def filterComments(self,comments,status):

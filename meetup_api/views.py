@@ -11,31 +11,37 @@ from meetup_api.models import MeetupLocation
 from meetup_api.models import MeetupMember
 
 
+
+
 class RefreshDb(webapp2.RequestHandler):
     """ Gets all of the content that is related to an API and then updates
     those that are already in the DB if necessary.
     """
     def get(self):
         api = meetupapi.MeetupApi()
-        events = api.getAllObjects(model='events',group_urlname='GDG-SP',\
+        events = api.getAllObjects(model='events',group_urlname='GDG-SP',
             status="past,upcoming")
         groups = api.getAllObjects(model='groups',group_urlname='GDG-SP')
 
-        eventInstances = list()
-        locationInstances = list()
-        groupInstances = list()
-
         for grupo in groups:
+        
+            group_id = grupo.id
             query = MeetupGroup.\
-                query(MeetupGroup.group_id == str(grupo.id)).iter()
+                query(MeetupGroup.group_id == group_id).iter()
             if query.has_next():
                 meetupGroup = query.next()
             else:
-                meetupGroup = MeetupGroup(\
-                    parent=ndb.Key('MeetupGroup',grupo.urlname))
-            meetupGroup.group_id = grupo.id
-            meetupGroup = utils.injectAttrsExpando(grupo,meetupGroup)
+                meetupGroup = MeetupGroup()
+
+            print grupo.description.__class__
+
+            meetupGroup.group_id    = group_id
+            meetupGroup.name        = grupo.name
+            meetupGroup.description = grupo.description
+            meetupGroup.urlname     = grupo.urlname 
+            meetupGroup.members     = int(grupo.members)  
             meetupGroup.put()
+
 
         for evento in events:
             query = MeetupEvent.\
@@ -43,12 +49,12 @@ class RefreshDb(webapp2.RequestHandler):
             if query.has_next():
                 meetupEvent = query.next()
             else:
-                meetupEvent = MeetupEvent(\
+                meetupEvent = MeetupEvent(
                     parent=ndb.Key('MeetupEvent',evento.group['urlname']))
 
-            time = datetime.fromtimestamp(\
+            time = datetime.fromtimestamp(
                                 float(evento.time)/1000.0)
-            updated = datetime.fromtimestamp(\
+            updated = datetime.fromtimestamp(
                                 float(evento.updated)/1000.0)
 
             if evento.duration == None:
@@ -95,8 +101,12 @@ class RefreshDb(webapp2.RequestHandler):
                                 float(evento.venue['lon']))
                 meetupLocation.name         = evento.venue['name']
                 meetupLocation.event        = meetupEvent.key
+<<<<<<< HEAD
                 meetupLocation.put()
 
 
 def getMemberKey(name):
     return ndb.Key('MeetupMember',name)
+=======
+                meetupLocation.put()
+>>>>>>> F_api
