@@ -11,8 +11,6 @@ from meetup_api.models import MeetupLocation
 from meetup_api.models import MeetupMember
 
 
-
-
 class RefreshDb(webapp2.RequestHandler):
     """ Gets all of the content that is related to an API and then updates
     those that are already in the DB if necessary.
@@ -101,12 +99,4 @@ class RefreshDb(webapp2.RequestHandler):
                                 float(evento.venue['lon']))
                 meetupLocation.name         = evento.venue['name']
                 meetupLocation.event        = meetupEvent.key
-<<<<<<< HEAD
                 meetupLocation.put()
-
-
-def getMemberKey(name):
-    return ndb.Key('MeetupMember',name)
-=======
-                meetupLocation.put()
->>>>>>> F_api

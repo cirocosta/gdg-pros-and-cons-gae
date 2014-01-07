@@ -1,22 +1,13 @@
 # Models to store the data comming from Meetup API. This will reflect
-<<<<<<< HEAD
-# a bit of the same state of the responses from the reffered API. 
-
-=======
 # a bit of the same state of the responses from the reffered API.
 
 import endpoints
->>>>>>> F_api
 
 from google.appengine.ext import ndb
 from protorpc import remote
 from endpoints_proto_datastore.ndb import EndpointsModel
 from datetime import datetime
 from votescreen.models import Comment
-<<<<<<< HEAD
-
-=======
->>>>>>> F_api
 
 
 class MeetupGroup(EndpointsModel):
@@ -74,11 +65,7 @@ class MeetupEvent(EndpointsModel):
     def getEventComments(self):
         """ Returns the comments iterator for the current Event or
             False otherwise """
-<<<<<<< HEAD
-        comments = Comment.query(Comment.evento == self.key).iter()
-=======
         comments = Comment.query(Comment.event_id == self.event_id).iter()
->>>>>>> F_api
         return comments if comments.has_next() else False
 
     def filterComments(self,comments,status):

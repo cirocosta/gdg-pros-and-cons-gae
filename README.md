@@ -22,8 +22,4 @@ Tools
 
 External
 ============
-<<<<<<< HEAD
 Faz-se uso da API do [Meetup.com](www.meetup.com) para a obtenção de dados referentes aos encontros do grupo.
-=======
-Faz-se uso da API do [Meetup.com](www.meetup.com) para a obtenção de dados referentes aos encontros do grupo.
->>>>>>> F_api
