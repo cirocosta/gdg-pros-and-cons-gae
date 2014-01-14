@@ -104,7 +104,7 @@ class MeetupApi(object):
             elif model == 'members':
                 for result in results:
                     groups.append(Member(result))
-        if groups) > 0:
+        if groups > 0:
             return groups[0:num]
         else:
             return groups
