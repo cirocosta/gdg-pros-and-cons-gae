@@ -14,16 +14,16 @@ import urllib2
 import settings
 import datetime
 
-API_ROOT_2      = '2/'
-API_ROOT_EW     = 'ew/'
-API_HOST        = 'api.meetup.com/'
-API_SCHEME      = 'https://'
+API_ROOT_2   = '2/'
+API_ROOT_EW  = 'ew/'
+API_HOST     = 'api.meetup.com/'
+API_SCHEME   = 'https://'
     
-URI_RSVPS       = 'rsvps/'
-URI_PROFILES    = 'profiles/'
-URI_GROUPS      = 'groups/'
-URI_EVENTS      = 'events/'
-URI_MEMBERS     = 'members/'
+URI_RSVPS    = 'rsvps/'
+URI_PROFILES = 'profiles/'
+URI_GROUPS   = 'groups/'
+URI_EVENTS   = 'events/'
+URI_MEMBERS  = 'members/'
 
 
 def convertToUtf8Str(param):
@@ -49,12 +49,16 @@ class MeetupApi(object):
     """
 
     REQUIRED_FIELDS = {
-        'events'    :   ['event_id','group_domain','group_id','group_urlname','member_id','rsvp','value_id'],
-        'groups'    :   ['category_id','country,city,state','domain','group_id','group_urlname','lat,lon',\
-            'member_id,','organizer_id','topic','topic,groupnum','zip'],
+        'events'    :   ['event_id', 'group_domain', 'group_id', 'group_urlname',
+                            'member_id', 'rsvp', 'value_id'],
+        'groups'    :   ['category_id','country,city,state','domain','group_id',
+                            'group_urlname','lat,lon','member_id,',
+                            'organizer_id','topic','topic,groupnum','zip'],
         'rsvps'     :   ['event_id','member_id'],
-        'profiles'  :   ['group_id','group_urlname','member_id','topic,groupnum'],
-        'members'   :   ['group_id','group_urlname','member_id','service','topic,groupnum'],
+        'profiles'  :   ['group_id','group_urlname','member_id',
+                            'topic,groupnum'],
+        'members'   :   ['group_id','group_urlname','member_id','service',
+                            'topic,groupnum'],
     }
     
     def __init__(self,api_key=settings.MEETUP_API_KEY):
@@ -66,7 +70,8 @@ class MeetupApi(object):
         self.path = self.api_scheme + self.api_host
 
     def buildPath(self,model,api_root=API_ROOT_2,**params):
-        """ Uses the object parameters to construct the path for the api fetching"""
+        """ Uses the object parameters to construct the path for the api 
+            fetching"""
         parameters_path = '%s?key=%s&' % (model,self.api_key)
         parameters_path += urllib.urlencode(params['params'])
         return self.path + api_root + parameters_path
@@ -86,8 +91,8 @@ class MeetupApi(object):
         try:
             response = simplejson.loads(urllib2.urlopen(url).read())
         except Exception,e:
-            raise MeetupApiException('An exception was raised while getting the response: '\
-                + str(e))
+            raise MeetupApiException(\
+                'An exception was raised while getting the response: ' + str(e))
         if 'results' in response:
             results = response['results']
             if model == 'groups':
@@ -99,13 +104,14 @@ class MeetupApi(object):
             elif model == 'members':
                 for result in results:
                     groups.append(Member(result))
-        if len(groups) > 0:
+        if groups) > 0:
             return groups[0:num]
         else:
             return groups
 
     def validateParameters(self,model,parameters):
-        """ Verifies if there is at least one of the required parameters for the query """
+        """ Verifies if there is at least one of the required parameters for 
+            the query """
         required_params = self.REQUIRED_FIELDS[model]
         i = 0
         for param in parameters:
@@ -173,8 +179,8 @@ class Group(Model):
         'list_addr','list_mode','lon','members','membership_dues','name',
         'next_event','organizer','other_services','pending_members','photos',
         'primary_topic','rating','self','short_link','similar_groups','sponsors',
-        'state','timezone','topics','urlname','visibility','welcome_message','who'
-        ]
+        'state','timezone','topics','urlname','visibility','welcome_message',
+        'who']
 
 
 class Rsvp(Model):
